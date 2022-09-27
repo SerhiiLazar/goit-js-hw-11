@@ -18,3 +18,23 @@
   border-radius: 2px;
 }
 
+.section {
+  padding: 20px 0 20px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: rgb(41, 41, 204, 0.8);
+}
+
+.search-form {
+  position: relative;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.search-form__button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
