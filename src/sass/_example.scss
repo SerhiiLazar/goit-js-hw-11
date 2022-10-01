@@ -40,6 +40,22 @@
 }
 
 
+.container_load-more {
+  padding: 15px 0 15px;
+}
+
+.load-more {
+  display: block;
+  margin:0 auto;
+  background-color: rgb(2, 2, 225, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.is-hidden {
+  display: none;
+}
+
 :root {
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-duration: 250ms;
