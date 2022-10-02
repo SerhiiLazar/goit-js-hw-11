@@ -1,37 +1,28 @@
-import axios from 'axios';
 
-export default class NewsFetchCountries  {
-    constructor() {
-        this.searchQuery = '';
-        this.page = 1;
-        this.per_page = 40;
-    }
+const BASE_URL = 'https://pixabay.com/api/';
+const API_KEY = '30170611-f5f506e58232a96150936505d';
+const axios = require('axios');
 
-    
-    async fetchApiImage() {
-        const options = {
-            url: 'https://pixabay.com/api/',
-            params: {
-                key: '30170611-f5f506e58232a96150936505d',
-                q: `${this.searchQuery}`,
-                image_type: 'photo',
-                orientation: 'horizontal',
-                safesearch: true,
-                page: `${this.page}`,
-                per_page: `${this.per_page}`,
-            },
-            
-        };
-        try {
-            const response = await axios(options);
-            const data = response.data;
-            console.log(options);
-            this.incrementPage();
-            return data;
-        } catch (error) {
-            console.error(error);
-        } 
+export default class NewsFetchCountries {
+  constructor() {
+    this.searchQuery = '';
+    this.page = 1;
+    this.perPage = 40;
+  }
+
+  async fetchApiImage() {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`
+      );
+
+      this.incrementPage();
+
+      return response;
+    } catch (error) {
+      console.error(error);
     }
+  }
     get query() {
         return this.searchQuery;
     }

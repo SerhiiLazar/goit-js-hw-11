@@ -1,32 +1,42 @@
-export default function renderList(data) {
+import SimpleLightbox from 'simplelightbox';
+import getRefs from './refsElement';
+
+const refs = getRefs();
+
+let lightbox = new SimpleLightbox('.gallery a ', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+  close: true,
+});
+
+
+export function renderList(images) {
   
-  const hits = data.hits;
-  return hits
-    .map(
-      ({ webformatURL, tags, largeImageURL, views, likes, comments, downloads }) => {
-        return `
-<div class="gallery__item">
-  <a class="gallery__link" href="${largeImageURL}">
-  <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
-  <div class="text">
-    <p class="text-item">
-      <b>Likes:</b>${likes}
-    </p>
-    <p class="text-item">
-      <b>Views:</b>${views}
-    </p>
-    <p class="text-item">
-      <b>Comments:</b>${comments}
-    </p>
-    <p class="text-item">
-      <b>Downloads:</b>${downloads}
-    </p>
-  </div>
-</div> 
-    `;
-      }
-    )
+  const hits = images.data.hits
+  .map(image =>  {
+        return `<div class="gallery__item">
+          <a class="gallery__link" href="${image.largeImageURL}">
+          <img class="gallery__image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy"/></a>
+          <div class="text">
+            <p class="text-item">
+              <b>Likes:</b>${image.likes}
+            </p>
+            <p class="text-item">
+              <b>Views:</b>${image.views}
+            </p>
+            <p class="text-item">
+              <b>Comments:</b>${image.comments}
+            </p>
+            <p class="text-item">
+              <b>Downloads:</b>${image.downloads}
+            </p>
+          </div>
+        </div>`;
+      })
     .join('');
-    
+  refs.fetchGallery.insertAdjacentHTML('beforeend', hits);
+  lightbox.refresh(); 
 }
 
